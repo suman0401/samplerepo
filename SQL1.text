@@ -1,0 +1,108 @@
+BASIC exercises on movie Database
+
+1. Write a query in SQL to find the name and year of the movies. 
+Sample table: movie
+SELECT mov_title, mov_year
+FROM movie;
+
+2. Write a query in SQL to find the year when the movie American Beauty released.  
+SELECT mov_year
+FROM movie
+WHERE mov_title='American Beauty';
+3. Write a query in SQL to find the movie which was released in the year 1999.
+SELECT mov_title
+FROM movie
+WHERE mov_year=1999;
+4. Write a query in SQL to find the movies which was released before 1998. 
+SELECT mov_title
+FROM movie
+WHERE mov_year<1998;
+5. Write a query in SQL to return the name of all reviewers and name of movies together in a single list.
+SELECT reviewer.rev_name
+FROM reviewer
+UNION
+(SELECT movie.mov_title
+FROM movie);
+6. Write a query in SQL to find the name of all reviewers who have rated 7 or more stars to their rating. 
+SELECT reviewer.rev_name
+FROM reviewer, rating
+WHERE rating.rev_id = reviewer.rev_id
+AND rating.rev_stars>=7 
+AND reviewer.rev_name IS NOT NULL;
+7. Write a query in SQL to find the titles of all movies that have no ratings. 
+SELECT mov_title
+FROM movie
+WHERE mov_id NOT IN (
+SELECT mov_id 
+FROM rating
+);
+8. Write a query in SQL to find the titles of the movies with ID 905, 907, 917.
+SELECT mov_title
+FROM movie
+WHERE mov_id in (905, 907, 917);
+9. Write a query in SQL to find the list of all those movies with year which include the words Boogie Nights. 
+SELECT mov_id, mov_title, mov_year
+FROM movie
+WHERE mov_title LIKE '%Boogie%Nights%'
+ORDER BY mov_year ASC;
+10. Write a query in SQL to find the ID number for the actor whose first name is 'Woody' and the last name is 'Allen'.
+SELECT act_id
+FROM actor 
+WHERE act_fname='Woody' 
+AND act_lname='Allen';
+soccer Database: Basic - Exercises, 
+1. Write a query in SQL to find the number of venues for EURO cup 2016.  .
+Sample table: soccer_venue
+SELECT COUNT(*) 
+FROM soccer_venue;
+
+2. Write a query in SQL to find the number countries participated in the EURO cup 2016. Sample table: player_mast
+SELECT COUNT(DISTINCT team_id) 
+FROM player_mast;
+3. Write a query in SQL to find the number goals scored in EURO cup 2016 within normal play schedule. Sample table: goal_details
+SELECT COUNT(*) 
+FROM goal_details;
+4. Write a query in SQL to find the number of matches ended with a result. Sample table: match_mast
+SELECT COUNT(*) 
+FROM match_mast 
+WHERE results='WIN';
+5. Write a query in SQL to find the number of matches ended with draws. Sample table: match_mast
+SELECT COUNT(*) 
+FROM match_mast 
+WHERE results='DRAW';
+6. Write a query in SQL to find the date when did Football EURO cup 2016 begin. Sample table: match_mast
+SELECT play_date "Beginning Date"
+FROM match_mast
+WHERE match_no=1;
+7. Write a query in SQL to find the number of self-goals scored in EURO cup 2016. Sample table: goal_details
+SELECT COUNT(*) 
+FROM goal_details 
+WHERE goal_type='O';
+8. Write a query in SQL to count the number of matches ended with a results in group stage. Sample table: match_mast
+SELECT COUNT(*) 
+FROM match_mast 
+WHERE results='WIN' 
+AND play_stage='G';
+9. Write a query in SQL to find the number of matches got a result by penalty shootout. Sample table: penalty_shootout
+SELECT COUNT(DISTINCT match_no) 
+FROM penalty_shootout;
+10. Write a query in SQL to find the number of matches decided by penalties in the Round of 16. Sample table: match_mast
+SELECT COUNT(*) 
+FROM match_mast 
+WHERE decided_by='P' AND play_stage='R';
+11. Write a query in SQL to find the number of goal scored in every match within normal play schedule. Sample table: goal_details
+SELECT match_no,COUNT(*) 
+FROM goal_details 
+GROUP BY match_no 
+ORDER BY match_no;
+12. Write a query in SQL to find the match no, date of play, and goal scored for that match in which no stoppage time have been added in 1st half of play.
+Sample table: match_mast
+SELECT match_no, play_date, goal_score 
+FROM  match_mast
+WHERE stop1_sec=0;
+13. Write a query in SQL to find the number of matches ending with a goalless draw in group stage of play.  .
+Sample table: match_details
+SELECT COUNT(DISTINCT(match_no))
+FROM match_details
+WHERE win_lose='D' 
+AND goal_score=0 AND play_stage='G';
